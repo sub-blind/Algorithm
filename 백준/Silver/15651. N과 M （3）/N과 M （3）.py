@@ -1,7 +1,13 @@
-from itertools import product
-n, m = map(int, input().split())
+n, m = list(map(int, input().split()))
+s = []
+temp = [False] * (n + 1)
+def dfs():
+    if len(s) == m:
+        print(" ".join(map(str, s)))
+        return
+    for i in range(1, n + 1):
+            s.append(i)
+            dfs()
+            s.pop()
 
-numbers = range(1, n + 1)
-
-for perm in product(numbers, repeat=m):
-    print(" ".join(map(str, perm)))
+dfs()
