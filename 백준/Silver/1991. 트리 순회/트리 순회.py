@@ -1,40 +1,51 @@
-import sys
-input = sys.stdin.readline
-N = int(input())
+n = int(input())
+
 tree = {}
 
-for _ in range(N):
-    root, left, right = input().strip().split()
-    tree[root] = [left, right]
+for _ in range(n):
+    parent, left_child, right_child = input().split()
+    tree[parent] = (left_child, right_child)
 
-preorder_result = []
-def preorder(root):
-    if root != ".":
-        preorder_result.append(root)
-        preorder(tree[root][0])
-        preorder(tree[root][1])
 
-inorder_result = []
-def inorder(root):
-    if root != ".":
-        inorder(tree[root][0])
-        inorder_result.append(root)
-        inorder(tree[root][1])
+def preorder(node):
+    if node == '.':
+        return
+    
+    left, right = tree[node]
+    
+    print(node, end='')
+    preorder(left)
+    preorder(right)
 
-postorder_result = []
-def postorder(root):
-    if root != ".":
-        postorder(tree[root][0])
-        postorder(tree[root][1])
-        postorder_result.append(root)
-# 전위 순회
-preorder("A")
-print("".join(preorder_result))
 
-# 중위 순회
-inorder("A")
-print("".join(inorder_result))
+def inorder(node):
+    if node == '.':
+        return
+    
+    left, right = tree[node]
+    
+    inorder(left)
+    print(node, end='')
+    inorder(right)
 
-# 후위 순회
-postorder("A")
-print("".join(postorder_result))
+
+def postorder(node):
+    if node == '.':
+        return
+    
+    left, right = tree[node]
+    
+    postorder(left)
+    postorder(right)
+    print(node, end='')
+
+
+root = 'A'
+
+preorder(root)
+print()
+
+inorder(root)
+print()
+
+postorder(root)
