@@ -1,0 +1,20 @@
+import sys
+input = sys.stdin.readline
+
+N, X, K = map(int, input().split())
+
+cup = [0] * (N + 1)
+cup[X] = 1
+
+for _ in range(K):
+    a, b = map(int, input().split())
+
+    temp = cup[a]
+    cup[a] = cup[b]
+    cup[b] = temp
+
+idx = 0
+for i in cup:
+    if i == 1:
+        print(idx)
+    idx += 1
